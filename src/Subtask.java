@@ -4,9 +4,8 @@ import java.util.List;
 public class Subtask extends Task {
     private Integer idEpic;
 
-
-    public Subtask(String name, String description) {
-        super(name, description); // TODO: 12.10.2023
+    public Subtask(String name, String description,Integer idEpic) {
+        super(name, description);
         this.idEpic = idEpic;
 
     }

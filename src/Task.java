@@ -3,12 +3,12 @@ public class Task {
     protected String name;
     protected String description;
     protected Integer id;
-    protected Statuses status;
+    protected TaskStatus status;
 
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        status = Statuses.NEW;
+        status = TaskStatus.NEW;
     }
 
     public String getName() {
@@ -35,11 +35,11 @@ public class Task {
         this.id = id;
     }
 
-    public Statuses getStatus() {
+    public TaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Statuses status) {
+    public void setStatus(TaskStatus status) {
         this.status = status;
     }
 }
