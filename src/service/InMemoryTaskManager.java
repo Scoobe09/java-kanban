@@ -12,7 +12,6 @@ import java.util.List;
 class InMemoryTaskManager implements TaskManager {
     private Integer globalId = 0;
 
-    List<Task> getHistory = new ArrayList<>(10);
     private HashMap<Integer, Task> tasks = new HashMap<>();
     private HashMap<Integer, Subtask> subtasks = new HashMap<>();
     private HashMap<Integer, Epic> epics = new HashMap<>();
@@ -23,22 +22,22 @@ class InMemoryTaskManager implements TaskManager {
         return ++globalId;
     }
 
-
     @Override
     public Task getTaskById(int globalId) {
+        historyManager.add(tasks.get(globalId));
         return tasks.get(globalId);
 
     }
 
     @Override
     public Subtask getSubtaskById(int globalId) {
-        getHistory.add(subtasks.get(globalId));
+        historyManager.add(subtasks.get(globalId));
         return subtasks.get(globalId);
     }
 
     @Override
     public Epic getEpicById(int globalId) {
-        getHistory.add(epics.get(globalId));
+        historyManager.add(epics.get(globalId));
         return epics.get(globalId);
     }
 
@@ -218,7 +217,7 @@ class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public List<Task> getHistory(){
+    public List<Task> getHistory() {
         return historyManager.getHistory();
     }
- }
+}
