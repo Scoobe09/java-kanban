@@ -3,26 +3,65 @@ package service;
 import model.Task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private static final int MAX_TASK_IN_HISTORY = 10;
-    private List<Task> history = new ArrayList<>();
+    public static class Node {
+        Task task;
+        Node prev;
+        Node next;
 
-    @Override
-    public List<Task> add(Task task) {
-        history.add(task);
-        if (history.size() == MAX_TASK_IN_HISTORY) {
-            history.remove(0);
+        private Node(Task task, Node prev, Node next) {
+            this.task = task;
+            this.prev = prev;
+            this.next = next;
         }
-        return history;
+    }
+        private Node first;
+        private Node last;
+        private Map<Integer, Node> tasks = new HashMap<>();
 
+        @Override
+        public void add(Task task) {
+            remove(task.getId());
+            Node newNode = new Node(task, null, null);
+            if (last == null) {
+                first = newNode;
+            } else {
+                last.next = newNode;
+            }
+            last = newNode;
+            tasks.put(task.getId(), newNode);
+        }
+
+        @Override
+        public List<Task> getHistory() {
+            List<Task> result = new ArrayList<>();
+            Node current = first;
+            while (current != null) {
+                result.add(current.task);
+                current = current.next;
+            }
+            return result;
+        }
+
+        @Override
+        public void remove(int id) {
+            Node remove = tasks.remove(id);
+            if (remove.prev == null) {
+                first = remove.next;
+                remove.next.prev = null;
+            } else if (remove.next == null) {
+                last = remove.prev;
+                remove.prev.next = null;
+            } else {
+                remove.prev.next = remove.next;
+                remove.next.prev = remove.prev;
+            }
+        }
     }
 
-    @Override
-    public List<Task> getHistory() {
-        return new ArrayList<>(history);
-    }
-}
 
