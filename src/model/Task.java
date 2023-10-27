@@ -2,9 +2,10 @@ package model;
 
 public class Task {
 
+    protected Integer id;
     protected String name;
     protected String description;
-    protected Integer id;
+
     protected TaskStatus status;
 
     public Task(String name, String description) {
@@ -43,5 +44,15 @@ public class Task {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

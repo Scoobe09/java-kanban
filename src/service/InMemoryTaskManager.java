@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-class InMemoryTaskManager implements TaskManager {
+public class InMemoryTaskManager implements TaskManager {
     private Integer globalId = 0;
 
     private HashMap<Integer, Task> tasks = new HashMap<>();
@@ -147,17 +147,26 @@ class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteTasks() {
+        for (Integer taskId : tasks.keySet()) {
+            historyManager.remove(taskId);
+        }
         tasks.clear();
     }
 
     @Override
     public void deleteEpics() {
+        for (Integer epicId : epics.keySet()) {
+            historyManager.remove(epicId);
+        }
+        deleteSubtasks();
         epics.clear();
-        subtasks.clear();
     }
 
     @Override
     public void deleteSubtasks() {
+        for (Integer subId : subtasks.keySet()) {
+            historyManager.remove(subId);
+        }
         subtasks.clear();
         if (!epics.isEmpty()) {
             for (Epic value : epics.values()) {
@@ -170,16 +179,19 @@ class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeTasksById(int globalId) {
+        historyManager.remove(globalId);
         tasks.remove(globalId);
     }
 
     @Override
     public void removeEpicsById(int globalId) {
+        historyManager.remove(globalId);
         if (epics.containsKey(globalId)) {
             Epic epic = epics.get(globalId);
-            ArrayList<Integer> Int = epic.getSubTasksIds();
-            for (Integer i : Int) {
+            ArrayList<Integer> subsIds = epic.getSubTasksIds();
+            for (Integer i : subsIds) {
                 subtasks.remove(i);
+                historyManager.remove(i);
             }
             epics.remove(globalId);
         }
@@ -191,6 +203,7 @@ class InMemoryTaskManager implements TaskManager {
             Epic epic = epics.get(subtasks.get(id).getIdEpic());
             epic.getSubTasksIds().remove(id);
             updateEpic(epic);
+            historyManager.remove(id);
             subtasks.remove(id);
         }
     }
