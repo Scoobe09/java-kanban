@@ -12,11 +12,11 @@ public class Main {
     public static void main(String[] args) {
         TaskManager taskManager = Managers.getDefault();
 
-      Task task1 = new Task("task1", "task1");
-      taskManager.saveTask(task1);
-      Task task2 = new Task("task2", "task2");
+        Task task1 = new Task("task1", "task1");
+        taskManager.saveTask(task1);
+        Task task2 = new Task("task2", "task2");
         taskManager.saveTask(task2);
-       Epic epic1 = new Epic("1", "1");
+        Epic epic1 = new Epic("1", "1");
         taskManager.saveEpic(epic1);
         Subtask subtask1_1 = new Subtask("1.1", "", epic1.getId());
         taskManager.saveSubtask(subtask1_1);
@@ -47,7 +47,7 @@ public class Main {
         printHistory(taskManager);
     }
 
-    public static void printHistory(TaskManager taskManager){
+    public static void printHistory(TaskManager taskManager) {
         for (Task task : taskManager.getHistory()) {
             System.out.println(task);
         }
