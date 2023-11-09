@@ -10,15 +10,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
-    private Integer globalId = 0;
+    protected Integer globalId = 0;
 
-    private HashMap<Integer, Task> tasks = new HashMap<>();
-    private HashMap<Integer, Subtask> subtasks = new HashMap<>();
-    private HashMap<Integer, Epic> epics = new HashMap<>();
+    protected HashMap<Integer, Task> tasks = new HashMap<>();
+    protected HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    protected HashMap<Integer, Epic> epics = new HashMap<>();
 
     private HistoryManager historyManager = Managers.getDefaultHistory();
 
-    private Integer createId() {
+    protected Integer createId() {
         return ++globalId;
     }
 
