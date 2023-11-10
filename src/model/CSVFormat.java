@@ -7,13 +7,8 @@ import java.util.List;
 
 public class CSVFormat {
 
-    public static String toString(Task task) {
-        return task.getId() + "," + task.getType() + "," + task.getName() + "," + task.getStatus() + "," + task.getDescription();
-    }
 
     public static Task fromString(String value) {
-        // String[] str = value.split(System.lineSeparator());
-        //  for (String pen : str) {
         String[] obj = value.split(",");
         Types type = Types.valueOf(obj[1]);
         String name = obj[2];

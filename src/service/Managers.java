@@ -9,6 +9,6 @@ public class Managers {
     }
 
     public static TaskManager getDefault() {
-        return FileBackedTasksManager.loadFromFile(new File("src/text.csv"));
+        return new FileBackedTasksManager(new File("src/text.csv"));
     }
 }
