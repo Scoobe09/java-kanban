@@ -7,7 +7,7 @@ public class Task {
     protected String description;
 
     protected TaskStatus status;
-    protected Types type;
+
 
     public Task(String name, String description) {
         this.name = name;
@@ -47,22 +47,9 @@ public class Task {
         this.status = status;
     }
 
-    public Types getType() {
-        return type;
-    }
-
-    public void setType(Types type) {
-        this.type = type;
-    }
 
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", name='" + name + '\'' +
-                ", status=" + status + '\'' +
-                ", description='" + description +
-                '}';
+        return id + "," + Types.TASK + "," + name + "," + status + "," + description;
     }
 }

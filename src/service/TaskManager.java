@@ -35,7 +35,6 @@ public interface TaskManager {
 
     void saveSubtask(Subtask subtask);
 
-    void updateEpicStatus(int epId);
 
     void deleteTasks();
 
@@ -54,7 +53,6 @@ public interface TaskManager {
     void printEpic();
 
     void printSubtask();
-
 
     List<Task> getHistory();
 }

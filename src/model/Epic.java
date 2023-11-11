@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class Epic extends Task {
 
     private ArrayList<Integer> subTasksIds;
+    Types type;
 
     public Epic(String name, String description) {
         super(name, description);
         subTasksIds = new ArrayList<>();
+
     }
 
     public ArrayList<Integer> getSubTasksIds() {
@@ -21,13 +23,6 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "Epic{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", name='" + name + '\'' +
-                ", status=" + status + '\'' +
-                ", description='" + description +
-                ", subTasksIds=" + subTasksIds +
-                '}';
+        return id + "," + Types.EPIC + "," + name + "," + status + "," + description;
     }
 }

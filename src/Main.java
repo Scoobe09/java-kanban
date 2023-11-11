@@ -1,30 +1,26 @@
-import model.Epic;
-import model.Subtask;
-import model.Task;
-import model.TaskStatus;
-import service.InMemoryHistoryManager;
-import service.InMemoryTaskManager;
-import service.Managers;
-import service.TaskManager;
+import model.*;
+import service.*;
+
+import java.io.File;
 
 public class Main {
 
     public static void main(String[] args) {
         TaskManager taskManager = Managers.getDefault();
 
-        Task task1 = new Task("task1", "task1");
+        Task task1 = new Task("Первый", "Первая таска");
         taskManager.saveTask(task1);
-        Task task2 = new Task("task2", "task2");
+        Task task2 = new Task("Второй", "Вторая таска");
         taskManager.saveTask(task2);
-        Epic epic1 = new Epic("1", "1");
+        Epic epic1 = new Epic("Эпик1", "Первый эпик");
         taskManager.saveEpic(epic1);
-        Subtask subtask1_1 = new Subtask("1.1", "", epic1.getId());
+        Subtask subtask1_1 = new Subtask("Саб1", "первый саб эпика", epic1.getId());
         taskManager.saveSubtask(subtask1_1);
-        Subtask subtask1_2 = new Subtask("1.2", "", epic1.getId());
+        Subtask subtask1_2 = new Subtask("Саб2", "второй саб эпика", epic1.getId());
         taskManager.saveSubtask(subtask1_2);
-        Subtask subtask1_3 = new Subtask("1.3", "", epic1.getId());
+        Subtask subtask1_3 = new Subtask("Саб3", "третий саб эпика", epic1.getId());
         taskManager.saveSubtask(subtask1_3);
-        Epic epic2 = new Epic("2", "2");
+        Epic epic2 = new Epic("Эпик2", "Второй эпик");
         taskManager.saveEpic(epic2);
 
         taskManager.getTaskById(task1.getId());
@@ -35,16 +31,7 @@ public class Main {
         taskManager.getSubtaskById(subtask1_3.getId());
         taskManager.getEpicById(epic2.getId());
         printHistory(taskManager);
-        System.out.println("Вызываю ещё раз task1 и epic1.");
-        taskManager.getTaskById(task1.getId());
-        taskManager.getEpicById(epic1.getId());
-        printHistory(taskManager);
-        System.out.println("Удаляю task1.");
-        taskManager.removeTasksById(task1.getId());
-        printHistory(taskManager);
-        System.out.println("Удаляю epic1.");
-        taskManager.removeEpicsById(epic1.getId());
-        printHistory(taskManager);
+
     }
 
     public static void printHistory(TaskManager taskManager) {
