@@ -30,32 +30,36 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             String[] str = line.split("\n");
             for (int i = 1; i < str.length; i++) {
                 if (str[i].isEmpty()) {
+                    if (!str[++i].isEmpty()) {
+                        String hLine = str[i];
+                        for (Integer hId : model.CSVFormat.historyFromString(hLine)) {
+                            fileBackedTasksManager.historyManager.add(fileBackedTasksManager.takeFromMap(hId));
+                        }
+                    }
                     break;
                 } else {
                     int id = -1;
                     if (getType(str[i]) == Types.TASK) {
-                        Task task = CSVFormat.fromString(str[i]);
+                        Task task = model.CSVFormat.fromString(str[i]);
                         id = task.getId();
                         fileBackedTasksManager.tasks.put(task.getId(), task);
                     } else if (getType(str[i]) == Types.SUBTASK) {
-                        Subtask subtask = (Subtask) CSVFormat.fromString(str[i]);
-                        fileBackedTasksManager.subtasks.put(subtask.getId(), subtask);
+                        Subtask subtask = (Subtask) model.CSVFormat.fromString(str[i]);
+                        id = subtask.getId();
+                        fileBackedTasksManager.subtasks.put(id, subtask);
                         Epic epic = fileBackedTasksManager.epics.get(subtask.getIdEpic());
                         epic.getSubTasksIds().add(subtask.getId());
                         fileBackedTasksManager.updateEpicStatus(epic.getId());
                     } else {
-                        Epic epic = (Epic) CSVFormat.fromString(str[i]);
-                        fileBackedTasksManager.epics.put(epic.getId(), epic);
+                        Epic epic = (Epic) model.CSVFormat.fromString(str[i]);
+                        id = epic.getId();
+                        fileBackedTasksManager.epics.put(id, epic);
                     }
                     if (id > fileBackedTasksManager.globalId) {
                         fileBackedTasksManager.globalId = id;
                     }
-                }
-                if (!str[i].isEmpty()) {
-                    String hLine = str[str.length - 1];
-                    for (Integer hId : CSVFormat.historyFromString(hLine)) {
-                        fileBackedTasksManager.historyManager.add(fileBackedTasksManager.getTaskById(hId));
-                    }
+
+
                 }
             }
         } catch (IOException e) {
@@ -88,6 +92,17 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 throw new ManagerSaveException("Не удалось сохранить в файл" + file.getName(), e);
             }
         }
+    }
+
+    private Task takeFromMap(int id){
+        Task task = tasks.get(id);
+        if(task == null){
+            task = epics.get(id);
+        }
+        if(task == null){
+            task = subtasks.get(id);
+        }
+        return task;
     }
 
     @Override
