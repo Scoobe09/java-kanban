@@ -8,8 +8,7 @@ import java.nio.file.Files;
 
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
-    File file;
-
+    private File file;
 
     public FileBackedTasksManager(File file) {
         this.file = file;
@@ -31,12 +30,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             String[] str = line.split("\n");
             for (int i = 1; i < str.length; i++) {
                 if (str[i].isEmpty()) {
-                    if (!str[++i].isEmpty()) {
-                        String hLine = str[i];
-                        for (Integer hId : CSVFormat.historyFromString(hLine)) {
-                            fileBackedTasksManager.historyManager.add(fileBackedTasksManager.getTaskById(hId));
-                        }
-                    }
                     break;
                 } else {
                     int id = -1;
@@ -56,6 +49,12 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     }
                     if (id > fileBackedTasksManager.globalId) {
                         fileBackedTasksManager.globalId = id;
+                    }
+                }
+                if (!str[i].isEmpty()) {
+                    String hLine = str[str.length - 1];
+                    for (Integer hId : CSVFormat.historyFromString(hLine)) {
+                        fileBackedTasksManager.historyManager.add(fileBackedTasksManager.getTaskById(hId));
                     }
                 }
             }

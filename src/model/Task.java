@@ -5,7 +5,6 @@ public class Task {
     protected Integer id;
     protected String name;
     protected String description;
-
     protected TaskStatus status;
 
 
@@ -46,7 +45,6 @@ public class Task {
     public void setStatus(TaskStatus status) {
         this.status = status;
     }
-
 
     @Override
     public String toString() {

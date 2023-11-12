@@ -13,12 +13,12 @@ public class CSVFormat {
         String name = obj[2];
         TaskStatus status = TaskStatus.valueOf(obj[3]);
         String description = obj[4];
-        if (type.equals(Types.TASK)) {
+        if (type == Types.TASK) {
             Task task = new Task(name, description);
             task.setId(id);
             task.setStatus(status);
             return task;
-        } else if (type.equals(Types.EPIC)) {
+        } else if (type == Types.EPIC) {
             Epic epic = new Epic(name, description);
             epic.setId(id);
             epic.setStatus(status);
@@ -44,10 +44,10 @@ public class CSVFormat {
 
     public static List<Integer> historyFromString(String value) {
         String[] str = value.split(",");
-        List<Integer> ids = new ArrayList<>(str.length);
-        int id = Integer.parseInt(str[str.length - 1]);
-        ids.add(id);
-
+        List<Integer> ids = new ArrayList<>();
+        for (String s : str) {
+            ids.add(Integer.parseInt(s));
+        }
         return ids;
     }
 }
