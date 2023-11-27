@@ -1,6 +1,10 @@
 package model;
 
 
+import service.InMemoryTaskManager;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +21,8 @@ public class CSVFormat {
             Task task = new Task(name, description);
             task.setId(id);
             task.setStatus(status);
+            task.setStartTime(dataTimeFromString(obj[5]));
+            task.setDuration(Integer.parseInt(obj[6]));
             return task;
         } else if (type == Types.EPIC) {
             Epic epic = new Epic(name, description);
@@ -24,9 +30,11 @@ public class CSVFormat {
             epic.setStatus(status);
             return epic;
         } else {
-            Subtask subtask = new Subtask(name, description, Integer.parseInt(obj[5]));
+            Subtask subtask = new Subtask(name, description, Integer.parseInt(obj[7]));
             subtask.setId(id);
             subtask.setStatus(status);
+            subtask.setStartTime(dataTimeFromString(obj[5]));
+            subtask.setDuration(Integer.parseInt(obj[6]));
             return subtask;
         }
     }
@@ -49,5 +57,13 @@ public class CSVFormat {
             ids.add(Integer.parseInt(s));
         }
         return ids;
+    }
+
+    protected static LocalDateTime dataTimeFromString(String str) {
+        if (str.equals("null")) {
+            return null;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+        return LocalDateTime.parse(str, formatter);
     }
 }

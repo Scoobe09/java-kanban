@@ -2,21 +2,29 @@ import model.*;
 import service.*;
 
 import java.io.File;
+import java.time.LocalDateTime;
 
 public class Main {
 
     public static void main(String[] args) {
         TaskManager taskManager = Managers.getDefault();
 
-        Task task1 = new Task("Первый", "Первая таска");
+
+        Task task1 = new Task("Первый", "Первая таска",
+                LocalDateTime.of(2020, 5, 16, 22, 15), 60);
         taskManager.saveTask(task1);
+
         Task task2 = new Task("Второй", "Вторая таска");
         taskManager.saveTask(task2);
+        Task task3 = new Task("!!!!!", "FsfDFfw");
+        taskManager.saveTask(task3);
         Epic epic1 = new Epic("Эпик1", "Первый эпик");
         taskManager.saveEpic(epic1);
-        Subtask subtask1_1 = new Subtask("Саб1", "первый саб эпика", epic1.getId());
+        Subtask subtask1_1 = new Subtask("Саб1", "первый саб эпика",
+                LocalDateTime.of(2020, 5, 16, 23, 16), 60, epic1.getId());
         taskManager.saveSubtask(subtask1_1);
-        Subtask subtask1_2 = new Subtask("Саб2", "второй саб эпика", epic1.getId());
+        Subtask subtask1_2 = new Subtask("Саб2", "второй саб эпика",
+                LocalDateTime.of(2019, 5, 16, 22, 15), 60, epic1.getId());
         taskManager.saveSubtask(subtask1_2);
         Subtask subtask1_3 = new Subtask("Саб3", "третий саб эпика", epic1.getId());
         taskManager.saveSubtask(subtask1_3);
