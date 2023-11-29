@@ -210,11 +210,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         String[] obj = line.split(",");
         Types type = Types.valueOf(obj[1]);
         if (type == Types.TASK) {
-            return type;
+            return Types.TASK;
         } else if (type == Types.SUBTASK) {
-            return type;
+            return Types.SUBTASK;
         } else {
-            return type;
+            return Types.EPIC;
         }
     }
 }

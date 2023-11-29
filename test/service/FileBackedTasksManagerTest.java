@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,6 +55,27 @@ public class FileBackedTasksManagerTest<T extends TaskManager> extends TaskManag
 
     @Test
     public void loadFromFileTest() {
-        assertTrue(file.exists());
+        try {
+            Files.delete(file.toPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        manager.save();
+        FileBackedTasksManager.loadFromFile(file);
+        assertFalse(manager.tasks.isEmpty());
+        assertFalse(manager.subtasks.isEmpty());
+        assertFalse(manager.epics.isEmpty());
+    }
+
+    @Test
+    public void crossingCheckTest() {
+        Subtask subtask1 = new Subtask("Сабтаск111", "саб1",
+                LocalDateTime.of(2023, 2, 15, 22, 30), 60, epic.getId());
+        manager.saveSubtask(subtask1);
+        Subtask subtask2 = new Subtask("Сабтаск111", "саб2",
+                LocalDateTime.of(2023, 2, 15, 22, 30), 60, epic.getId());
+        manager.saveSubtask(subtask2);
+
+        assertEquals(71, manager.getPrioritizedTasks().size());
     }
 }

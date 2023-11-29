@@ -289,10 +289,10 @@ abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     public void crossingCheckTest() {
-        Subtask subtask1 = new Subtask("Сабтаск111", "miniNigga",
+        Subtask subtask1 = new Subtask("Сабтаск111", "саб1",
                 LocalDateTime.of(2023, 2, 15, 22, 30), 60, epic.getId());
         manager.saveSubtask(subtask1);
-        Subtask subtask2 = new Subtask("Сабтаск111", "miniNigga",
+        Subtask subtask2 = new Subtask("Сабтаск111", "саб2",
                 LocalDateTime.of(2023, 2, 15, 22, 30), 60, epic.getId());
         manager.saveSubtask(subtask2);
 

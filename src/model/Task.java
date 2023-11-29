@@ -37,16 +37,16 @@ public class Task {
     }
 
 
-
-    public LocalDateTime getEndTime(){
-        if(startTime == null){
+    public LocalDateTime getEndTime() {
+        if (startTime == null) {
             return null;
         }
-        if (duration == 0){
+        if (duration == 0) {
             return null;
         }
         return startTime.plusMinutes(duration);
     }
+
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -100,8 +100,8 @@ public class Task {
         return id + "," + Types.TASK + "," + name + "," + status + "," + description + "," + dataTimeToString(startTime) + "," + duration;
     }
 
-    protected String dataTimeToString(LocalDateTime localDateTime){
-        if(localDateTime == null){
+    protected String dataTimeToString(LocalDateTime localDateTime) {
+        if (localDateTime == null) {
             return null;
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");

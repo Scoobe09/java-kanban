@@ -14,6 +14,7 @@ public class Subtask extends Task {
         super(name, description, startTime);
         this.idEpic = idEpic;
     }
+
     public Subtask(String name, String description, LocalDateTime startTime, int duration, Integer idEpic) {
         super(name, description, startTime, duration);
         this.idEpic = idEpic;
@@ -30,6 +31,6 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return id + "," + Types.SUBTASK + "," + name + "," + status + "," + description + "," + dataTimeToString(startTime)+ "," + duration + "," + idEpic;
+        return id + "," + Types.SUBTASK + "," + name + "," + status + "," + description + "," + dataTimeToString(startTime) + "," + duration + "," + idEpic;
     }
 }
