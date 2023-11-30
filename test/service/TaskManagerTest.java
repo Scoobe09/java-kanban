@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 abstract class TaskManagerTest<T extends TaskManager> {
-     protected T manager;
+    protected T manager;
     protected Task task;
     protected Epic epic;
     protected Subtask subtask;
@@ -28,6 +28,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
         subtask = new Subtask("Сабтаск", "1111", epic.getId());
         manager.saveSubtask(subtask);
     }
+
     @Test
     void saveTask() {
         final int taskId = task.getId();
