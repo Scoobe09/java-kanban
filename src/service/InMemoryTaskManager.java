@@ -13,7 +13,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected HashMap<Integer, Task> tasks = new HashMap<>();
     protected HashMap<Integer, Subtask> subtasks = new HashMap<>();
     protected HashMap<Integer, Epic> epics = new HashMap<>();
-    protected final static Set<Task> priority = new TreeSet<>(new StartComparator());
+    protected final Set<Task> priority = new TreeSet<>(new StartComparator());
     protected HistoryManager historyManager = Managers.getDefaultHistory();
 
     protected Integer createId() {

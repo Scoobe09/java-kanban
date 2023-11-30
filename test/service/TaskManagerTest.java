@@ -4,6 +4,7 @@ import model.Epic;
 import model.Subtask;
 import model.Task;
 import model.TaskStatus;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -14,11 +15,19 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 abstract class TaskManagerTest<T extends TaskManager> {
-    protected T manager;
+     protected T manager;
     protected Task task;
     protected Epic epic;
     protected Subtask subtask;
 
+    public void init() {
+        task = new Task("Таска", "!!!!");
+        manager.saveTask(task);
+        epic = new Epic("Эпик", "????");
+        manager.saveEpic(epic);
+        subtask = new Subtask("Сабтаск", "1111", epic.getId());
+        manager.saveSubtask(subtask);
+    }
     @Test
     void saveTask() {
         final int taskId = task.getId();
@@ -283,7 +292,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 LocalDateTime.of(2023, 2, 15, 22, 30), 60, epic.getId());
         manager.saveSubtask(subtask1);
         LocalDateTime str = subtask1.getStartTime();
-
+        System.out.println(manager.getTasks().size() + "!!!!!!");
         assertEquals(epic.getEndTime(), str.plusMinutes(subtask1.getDuration()), "Неправильное обновление конца эпика");
     }
 
@@ -296,6 +305,6 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 LocalDateTime.of(2023, 2, 15, 22, 30), 60, epic.getId());
         manager.saveSubtask(subtask2);
 
-        assertEquals(51, manager.getPrioritizedTasks().size());
+        assertEquals(3, manager.getPrioritizedTasks().size());
     }
 }

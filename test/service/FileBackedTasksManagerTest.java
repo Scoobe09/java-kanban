@@ -21,12 +21,7 @@ public class FileBackedTasksManagerTest<T extends TaskManager> extends TaskManag
     public void beforeEach() {
         file = new File("src/text.csv");
         manager = new FileBackedTasksManager(file);
-        task = new Task("task", "!!!!");
-        manager.saveTask(task);
-        epic = new Epic("epic", "????");
-        manager.saveEpic(epic);
-        subtask = new Subtask("sub", "1111", epic.getId());
-        manager.saveSubtask(subtask);
+        init();
     }
 
     @Override
@@ -76,6 +71,6 @@ public class FileBackedTasksManagerTest<T extends TaskManager> extends TaskManag
                 LocalDateTime.of(2023, 2, 15, 22, 30), 60, epic.getId());
         manager.saveSubtask(subtask2);
 
-        assertEquals(71, manager.getPrioritizedTasks().size());
+        assertEquals(3, manager.getPrioritizedTasks().size());
     }
 }
