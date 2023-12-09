@@ -6,7 +6,7 @@ import model.Task;
 import org.junit.jupiter.api.BeforeEach;
 
 
-public class InMemoryTaskManagerTest<T extends TaskManager> extends TaskManagerTest<InMemoryTaskManager> {
+public class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
 
     @BeforeEach
     public void beforeEach() {

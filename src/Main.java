@@ -1,13 +1,23 @@
 import model.*;
+import server.HttpTaskServer;
+import server.KVServer;
 import service.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
+
+
+        KVServer kvServer = new KVServer();
+        kvServer.start();
+
         TaskManager taskManager = Managers.getDefault();
+        HttpTaskServer httpTaskServer = new HttpTaskServer(taskManager);
+        httpTaskServer.start();
 
 
         Task task1 = new Task("Первый", "Первая таска",

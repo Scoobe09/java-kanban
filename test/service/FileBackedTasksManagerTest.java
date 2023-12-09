@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class FileBackedTasksManagerTest<T extends TaskManager> extends TaskManagerTest<FileBackedTasksManager> {
+public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
     File file;
 
     @BeforeEach

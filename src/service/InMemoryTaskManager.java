@@ -195,6 +195,19 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
+    public ArrayList<Task> getAllTasks() {
+        ArrayList<Task> list = new ArrayList<>();
+        list.addAll(tasks.values());
+        list.addAll(epics.values());
+        list.addAll(subtasks.values());
+        if (list.size() == 0) {
+            System.out.println("Нет не одной задачи");
+        }
+
+        return list;
+    }
+
+    @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
