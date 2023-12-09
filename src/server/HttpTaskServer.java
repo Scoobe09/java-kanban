@@ -50,8 +50,6 @@ public class HttpTaskServer {
             String query = httpExchange.getRequestURI().getQuery();
             switch (request) {
                 case "GET":
-
-
                     if (Pattern.matches("^/tasks/task$", path)) {
                         System.out.println(path);
                         String response = gson.toJson(taskManager.getTasks());

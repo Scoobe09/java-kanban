@@ -15,13 +15,14 @@ public class Managers {
     }
 
     public static TaskManager getDefaultFileBackedTasksManager() {
-       return FileBackedTasksManager.loadFromFile(new File("src/text.csv"));
+        return FileBackedTasksManager.loadFromFile(new File("src/text.csv"));
     }
 
     public static HttpTaskManager getDefault() throws IOException, InterruptedException {
         return new HttpTaskManager("http://localhost:8078");
     }
-    public static Gson getGson(){
+
+    public static Gson getGson() {
         GsonBuilder gsonBuilder = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());
         Gson gson = gsonBuilder.create();

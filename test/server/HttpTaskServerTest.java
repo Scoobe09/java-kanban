@@ -1,7 +1,6 @@
 package server;
 
 
-
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
@@ -26,9 +25,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HttpTaskServerTest {
- private HttpTaskServer httpTaskServer;
- private TaskManager manager;
- private Gson gson = Managers.getGson();
+    private HttpTaskServer httpTaskServer;
+    private TaskManager manager;
+    private Gson gson = Managers.getGson();
 
 
     private HttpClient httpClient;
@@ -64,7 +63,8 @@ class HttpTaskServerTest {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, response.statusCode());
 
-        Type type = new TypeToken<List<Task>>() {}.getType();
+        Type type = new TypeToken<List<Task>>() {
+        }.getType();
         List<Task> actual = gson.fromJson(response.body(), type);
 
         assertNotNull(actual);
@@ -81,7 +81,8 @@ class HttpTaskServerTest {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, response.statusCode());
 
-        Type type = new TypeToken<Task>() {}.getType();
+        Type type = new TypeToken<Task>() {
+        }.getType();
         List<Task> actual = gson.fromJson(response.body(), type);
 
         assertNotNull(actual);

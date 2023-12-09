@@ -20,7 +20,7 @@ public class KVTaskClient {
                 .uri(URI.create(url + "/register"))
                 .build();
 
-         HttpResponse<String> response = client.send(httpRequest, handler);
+        HttpResponse<String> response = client.send(httpRequest, handler);
 
         key = response.body();
     }

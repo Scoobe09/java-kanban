@@ -12,21 +12,22 @@ import java.time.format.DateTimeFormatter;
 public class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy-HH:mm");
+
     @Override
     public void write(JsonWriter jsonWriter, LocalDateTime localDateTime) throws IOException {
-   if(localDateTime == null){
-       jsonWriter.nullValue();
-   }else{
-       jsonWriter.value(localDateTime.format(formatter));
-   }
+        if (localDateTime == null) {
+            jsonWriter.nullValue();
+        } else {
+            jsonWriter.value(localDateTime.format(formatter));
+        }
     }
 
     @Override
     public LocalDateTime read(JsonReader jsonReader) throws IOException {
-       if(jsonReader.peek() == JsonToken.NULL){
-           jsonReader.nextNull();
-           return null;
-       }
+        if (jsonReader.peek() == JsonToken.NULL) {
+            jsonReader.nextNull();
+            return null;
+        }
         return LocalDateTime.parse(jsonReader.nextString(), formatter);
     }
 }

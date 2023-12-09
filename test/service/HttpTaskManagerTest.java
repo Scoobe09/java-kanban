@@ -14,8 +14,9 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HttpTaskManagerTest extends TaskManagerTest<HttpTaskManager>{
-   private KVServer server;
+class HttpTaskManagerTest extends TaskManagerTest<HttpTaskManager> {
+    private KVServer server;
+
     @BeforeEach
     public void beforeEach() throws IOException, InterruptedException {
         server = new KVServer();
@@ -25,7 +26,7 @@ class HttpTaskManagerTest extends TaskManagerTest<HttpTaskManager>{
     }
 
     @AfterEach
-    public void afterEach(){
+    public void afterEach() {
         server.stop();
     }
 
