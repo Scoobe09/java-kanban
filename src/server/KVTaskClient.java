@@ -9,9 +9,9 @@ import java.net.http.HttpResponse;
 
 public class KVTaskClient {
     private final URL url;
-    private final String key;
-    private HttpClient client = HttpClient.newHttpClient();
-    private HttpResponse.BodyHandler<String> handler = HttpResponse.BodyHandlers.ofString();
+    private final String token;
+    private final HttpClient client = HttpClient.newHttpClient();
+    private final HttpResponse.BodyHandler<String> handler = HttpResponse.BodyHandlers.ofString();
 
     public KVTaskClient(String url) throws IOException, InterruptedException {
         this.url = new URL(url);
@@ -22,24 +22,24 @@ public class KVTaskClient {
 
         HttpResponse<String> response = client.send(httpRequest, handler);
 
-        key = response.body();
+        token = response.body();
     }
 
-    public void put(String key1, String json) throws IOException, InterruptedException {
+    public void put(String key, String json) throws IOException, InterruptedException {
         HttpRequest.BodyPublisher body = HttpRequest.BodyPublishers.ofString(json);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(body)
-                .uri(URI.create(url + "/save" + key + "?API_TOKEN=" + key))
+                .uri(URI.create(url + "/save" + key + "?API_TOKEN=" + token))
                 .build();
 
-        HttpResponse<String> response = client.send(request, handler);
+
     }
 
-    public String load(String key1) throws IOException, InterruptedException {
+    public String load(String key) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(url + "/load" + key + "?API_TOKEN=" + key))
+                .uri(URI.create(url + "/load" + key + "?API_TOKEN=" + token))
                 .build();
 
         HttpResponse<String> response = client.send(request, handler);

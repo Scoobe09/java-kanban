@@ -13,7 +13,6 @@ import java.util.List;
 
 public class HttpTaskManager extends FileBackedTasksManager {
     private KVTaskClient client;
-    private String url;
     private Gson gson;
 
     public HttpTaskManager(String url) throws IOException, InterruptedException {
