@@ -33,7 +33,7 @@ public class KVTaskClient {
                 .uri(URI.create(url + "/save" + key + "?API_TOKEN=" + token))
                 .build();
 
-        client.send(request, handler);
+        HttpResponse<String> response = client.send(request, handler);
     }
 
     public String load(String key) throws IOException, InterruptedException {
