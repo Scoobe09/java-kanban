@@ -31,7 +31,7 @@ class HttpTaskManagerTest extends TaskManagerTest<HttpTaskManager> {
     }
 
     @Test
-    public void testLoadAndSaveWithThreeTasks() throws IOException, InterruptedException {
+    public void testLoadAndSave() throws IOException, InterruptedException {
         manager.loadFromServer();
 
         assertEquals(5, manager.getAllTasks().size());

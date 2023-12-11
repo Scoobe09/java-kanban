@@ -39,15 +39,12 @@ public class HttpTaskServer {
         HttpTaskServer server1 = new HttpTaskServer();
         server1.start();
         // server1.stop();
-
     }
 
     private void handler(HttpExchange httpExchange) {
         try {
-            FileBackedTasksManager fileBackedTasksManager = (FileBackedTasksManager) taskManager;
             String path = httpExchange.getRequestURI().getPath();
             String request = httpExchange.getRequestMethod();
-            String query = httpExchange.getRequestURI().getQuery();
             switch (request) {
                 case "GET":
                     if (Pattern.matches("^/tasks/task$", path)) {
