@@ -1,18 +1,13 @@
 package service;
 
-import model.Epic;
-import model.Subtask;
-import model.Task;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.KVServer;
 
-import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HttpTaskManagerTest extends TaskManagerTest<HttpTaskManager> {
     private KVServer server;
