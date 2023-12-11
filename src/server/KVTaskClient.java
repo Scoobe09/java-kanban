@@ -45,5 +45,4 @@ public class KVTaskClient {
         HttpResponse<String> response = client.send(request, handler);
         return response.body();
     }
-
 }
